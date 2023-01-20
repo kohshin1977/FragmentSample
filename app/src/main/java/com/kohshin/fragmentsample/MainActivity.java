@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,18 +14,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button button01 = findViewById(R.id.button);
+
         if(savedInstanceState == null){
-            // FragmentManagerのインスタンス生成
-            FragmentManager fragmentManager = getSupportFragmentManager();
+            button01.setOnClickListener( v -> {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            // FragmentTransactionのインスタンスを取得
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                //BackStackを設定
+                fragmentTransaction.addToBackStack(null);
 
-            // インスタンスに対して張り付け方を指定する
-            fragmentTransaction.replace(R.id.container, new SampleFragment());
+                //パラメータを設定
+                fragmentTransaction.replace(R.id.container, SampleFragment.newInstance("Fragment"));
+                fragmentTransaction.commit();
 
-            // 張り付けを実行
-            fragmentTransaction.commit();
+            });
         }
     }
 }
