@@ -14,21 +14,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button01 = findViewById(R.id.button);
+        if (savedInstanceState == null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        if(savedInstanceState == null){
-            button01.setOnClickListener( v -> {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            // BackStackを設定
+            fragmentTransaction.addToBackStack(null);
 
-                //BackStackを設定
-                fragmentTransaction.addToBackStack(null);
+            // counterをパラメータとして設定
+            int count = 0;
+            fragmentTransaction.replace(R.id.container, Fragment01.newInstance(count));
 
-                //パラメータを設定
-                fragmentTransaction.replace(R.id.container, SampleFragment.newInstance("Fragment"));
-                fragmentTransaction.commit();
-
-            });
+            fragmentTransaction.commit();
         }
     }
 }
