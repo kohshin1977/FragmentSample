@@ -15,13 +15,13 @@ import androidx.fragment.app.FragmentTransaction;
 public class Fragment01 extends Fragment {
     private int cnt = 0;
 
-    static Fragment01 newInstance(int count){
+    static Fragment01 newInstance(String str){
 // Fragemnt01 インスタンス生成
         Fragment01 fragment01 = new Fragment01();
 
 // Bundle にパラメータを設定
         Bundle args = new Bundle();
-        args.putInt("Counter", count);
+        args.putString("Fragment", str);
         fragment01.setArguments(args);
 
         return fragment01;
@@ -41,32 +41,15 @@ public class Fragment01 extends Fragment {
         Bundle args = getArguments();
 
         if(args != null ) {
-            int count = args.getInt("Counter");
-            String str = "Fragment01: " + count;
-            cnt = count + 1;
+            String str_tmp = args.getString("Fragment");
+            String str = str_tmp;
 
             TextView textView = view.findViewById(R.id.textview_01);
             textView.setText(str);
         }
 
-        Button button01 = view.findViewById(R.id.button_01);
-        button01.setOnClickListener( v -> {
-            FragmentManager fragmentManager = getParentFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            //BackStackを設定
-            fragmentTransaction.addToBackStack(null);
-
-            fragmentTransaction.replace(R.id.container, Fragment02.newInstance(cnt));
-            fragmentTransaction.commit();
-
-        });
 
 
-        //BackStackで１つ戻す
-        Button pop01 = view.findViewById(R.id.pop_01);
-        pop01.setOnClickListener( v -> {
-            FragmentManager fragmentManager = getParentFragmentManager();
-            fragmentManager.popBackStack();
-        });
+
     }
 }

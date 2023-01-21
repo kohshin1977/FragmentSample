@@ -21,9 +21,9 @@ public class MainActivity extends AppCompatActivity {
             // BackStackを設定
             fragmentTransaction.addToBackStack(null);
 
-            // counterをパラメータとして設定
-            int count = 0;
-            fragmentTransaction.replace(R.id.container, Fragment01.newInstance(count));
+            fragmentTransaction.replace(R.id.container1, Fragment01.newInstance("Fragment1"));
+
+            fragmentTransaction.replace(R.id.container2, Fragment02.newInstance("Fragment2"));
 
             fragmentTransaction.commit();
         }
